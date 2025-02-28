@@ -21,26 +21,18 @@ Steps:
 Install MongoDB locally or use MongoDB Atlas for a cloud-based solution.
 Start the MongoDB server locally or connect to your MongoDB Atlas cluster.
 Confirm the installation by executing the following command:
-sh
-Run
-Copy code
 mongo --version
+
 Creating Databases and Collections
 Create a new database named library and a collection called books.
 Example:
-
-sh
-Run
-Copy code
 use library
 db.createCollection("books")
+
 Inserting Data
 Insert a minimum of five book records into the books collection, each containing fields such as title, author, publishedYear, genre, and ISBN.
 Example Insert:
 
-sh
-Run
-Copy code
 db.books.insertMany([
   {
     title: "The Handmaid's Tale",
@@ -78,13 +70,11 @@ db.books.insertMany([
     ISBN: "9781503280786"
   }
 ])
+
 Retrieving Data
 Execute queries to fetch data from the books collection.
 Example Queries:
 
-sh
-Run
-Copy code
 # Retrieve all books
 db.books.find()
 
@@ -93,13 +83,10 @@ db.books.find({ author: "Margaret Atwood" })
 
 # Retrieve books published after the year 2000
 db.books.find({ publishedYear: { $gt: 2000 } })
+
 Updating Data
 Perform updates to modify existing records in the collection.
 Example Updates:
-
-sh
-Run
-Copy code
 # Update the publishedYear for a specific book
 db.books.updateOne(
   { ISBN: "9780385490818" },
@@ -111,14 +98,12 @@ db.books.updateMany(
   {},
   { $set: { rating: 4.5 } }
 )
+
 Data Modeling Exercise
 Develop a data model for an e-commerce platform that includes users, orders, and products collections.
 Example Data Model:
 
 Users Collection
-sh
-Run
-Copy code
 db.createCollection("users")
 db.users.insertOne({
   username: "jane_doe",
@@ -127,10 +112,8 @@ db.users.insertOne({
   role: "customer",
   createdAt: new Date()
 })
+
 Orders Collection
-sh
-Run
-Copy code
 db.createCollection("orders")
 db.orders.insertOne({
   userId: ObjectId("user_id_here"), 
@@ -140,10 +123,8 @@ db.orders.insertOne({
   createdAt: new Date(),
   updatedAt: new Date()
 })
+
 Products Collection
-sh
-Run
-Copy code
 db.createCollection("products")
 db.products.insertOne({
   name: "Gaming Laptop",
@@ -154,13 +135,10 @@ db.products.insertOne({
   rating: 4.7,
   createdAt: new Date()
 })
+
 Aggregation Framework
 Utilize the aggregation framework to perform operations on the data.
 Example Aggregations:
-
-bash
-Run
-Copy code
 # Find the total number of books per genre
 db.books.aggregate([
   { $group: { _id: "$genre", totalBooks: { $sum: 1 } } }
@@ -176,26 +154,27 @@ db.books.aggregate([
   { $sort: { rating: -1 } },
   { $limit: 1 }
 ])
+
 Indexing
 Create an index on the author field to enhance query performance.
 Example:
 
-bash
-Run
-Copy code
 db.books.createIndex({ author: 1 })
+
+
 Advantages of Indexing:
 Indexing significantly improves query performance, especially when dealing with large datasets.
 It accelerates searches, sorting, and filtering based on indexed fields.
 Testing
 Validate the inserted and updated records using queries in MongoDB Shell or Compass.
 Example Test Queries:
-
-bash
-Run
-Copy code
 # Verify inserted records
 db.books.find()
 
 # Ensure 'rating' field was added to all books
 db.books.find({ rating: { $exists: true } })
+
+
+
+
+
