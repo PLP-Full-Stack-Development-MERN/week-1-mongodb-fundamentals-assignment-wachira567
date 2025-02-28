@@ -14,7 +14,9 @@ Aggregation Framework
 Indexing
 Testing
 Submission Guidelines
+
 Setting Up MongoDB
+
 To get started with MongoDB, ensure it is correctly installed on your local machine or utilize MongoDB Atlas to set up a free cloud cluster.
 
 Steps:
@@ -24,6 +26,7 @@ Confirm the installation by executing the following command:
 mongo --version
 
 Creating Databases and Collections
+
 Create a new database named library and a collection called books.
 Example:
 use library
