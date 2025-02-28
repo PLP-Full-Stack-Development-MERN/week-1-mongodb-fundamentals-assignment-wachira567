@@ -1,8 +1,10 @@
-Week 1: MongoDB Essentials Assignment
-Objective
+**Week 1: MongoDB Essentials Assignment**
+
+**Objective**
+
 This project is designed to implement MongoDB concepts covered during the week. It involves working with databases, collections, documents, CRUD operations, data modeling, aggregation, and indexing. The exercises aim to enhance skills in database management and optimization.
 
-Table of Contents
+**Table of Contents**
 Setting Up MongoDB
 Creating Databases and Collections
 Inserting Data
@@ -15,7 +17,7 @@ Indexing
 Testing
 Submission Guidelines
 
-Setting Up MongoDB
+**Setting Up MongoDB**
 
 To get started with MongoDB, ensure it is correctly installed on your local machine or utilize MongoDB Atlas to set up a free cloud cluster.
 
@@ -25,15 +27,18 @@ Start the MongoDB server locally or connect to your MongoDB Atlas cluster.
 Confirm the installation by executing the following command:
 mongo --version
 
-Creating Databases and Collections
+**Creating Databases and Collections**
 
 Create a new database named library and a collection called books.
+
 Example:
 use library
 db.createCollection("books")
 
-Inserting Data
+**Inserting Data**
+
 Insert a minimum of five book records into the books collection, each containing fields such as title, author, publishedYear, genre, and ISBN.
+
 Example Insert:
 
 db.books.insertMany([
@@ -74,8 +79,10 @@ db.books.insertMany([
   }
 ])
 
-Retrieving Data
+**Retrieving Data**
+
 Execute queries to fetch data from the books collection.
+
 Example Queries:
 
 # Retrieve all books
@@ -89,7 +96,9 @@ db.books.find({ publishedYear: { $gt: 2000 } })
 
 Updating Data
 Perform updates to modify existing records in the collection.
+
 Example Updates:
+
 # Update the publishedYear for a specific book
 db.books.updateOne(
   { ISBN: "9780385490818" },
@@ -102,8 +111,10 @@ db.books.updateMany(
   { $set: { rating: 4.5 } }
 )
 
-Data Modeling Exercise
+**Data Modeling Exercise**
+
 Develop a data model for an e-commerce platform that includes users, orders, and products collections.
+
 Example Data Model:
 
 Users Collection
@@ -139,9 +150,12 @@ db.products.insertOne({
   createdAt: new Date()
 })
 
-Aggregation Framework
+**Aggregation Framework**
+
 Utilize the aggregation framework to perform operations on the data.
+
 Example Aggregations:
+
 # Find the total number of books per genre
 db.books.aggregate([
   { $group: { _id: "$genre", totalBooks: { $sum: 1 } } }
@@ -158,19 +172,27 @@ db.books.aggregate([
   { $limit: 1 }
 ])
 
-Indexing
+**Indexing**
+
 Create an index on the author field to enhance query performance.
+
 Example:
 
 db.books.createIndex({ author: 1 })
 
 
-Advantages of Indexing:
+**Advantages of Indexing:**
+
 Indexing significantly improves query performance, especially when dealing with large datasets.
+
 It accelerates searches, sorting, and filtering based on indexed fields.
-Testing
+
+**Testing**
+
 Validate the inserted and updated records using queries in MongoDB Shell or Compass.
+
 Example Test Queries:
+
 # Verify inserted records
 db.books.find()
 
