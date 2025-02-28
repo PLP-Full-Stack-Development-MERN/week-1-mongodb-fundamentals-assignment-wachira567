@@ -86,12 +86,15 @@ Execute queries to fetch data from the books collection.
 Example Queries:
 
 # Retrieve all books
+
 db.books.find()
 
 # Retrieve books by a specific author
+
 db.books.find({ author: "Margaret Atwood" })
 
 # Retrieve books published after the year 2000
+
 db.books.find({ publishedYear: { $gt: 2000 } })
 
 Updating Data
@@ -100,12 +103,14 @@ Perform updates to modify existing records in the collection.
 Example Updates:
 
 # Update the publishedYear for a specific book
+
 db.books.updateOne(
   { ISBN: "9780385490818" },
   { $set: { publishedYear: 2000 } }
 )
 
 # Add a 'rating' field to all books
+
 db.books.updateMany(
   {},
   { $set: { rating: 4.5 } }
@@ -122,7 +127,7 @@ db.createCollection("users")
 db.users.insertOne({
   username: "jane_doe",
   password: "hashed_password_here",
-  email: "jane.doe@example.com",
+  email: "jane.doe@gmail.com",
   role: "customer",
   createdAt: new Date()
 })
@@ -157,16 +162,19 @@ Utilize the aggregation framework to perform operations on the data.
 Example Aggregations:
 
 # Find the total number of books per genre
+
 db.books.aggregate([
   { $group: { _id: "$genre", totalBooks: { $sum: 1 } } }
 ])
 
 # Calculate the average published year of all books
+
 db.books.aggregate([
   { $group: { _id: null, avgPublishedYear: { $avg: "$publishedYear" } } }
 ])
 
 # Identify the highest-rated book
+
 db.books.aggregate([
   { $sort: { rating: -1 } },
   { $limit: 1 }
