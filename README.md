@@ -1,84 +1,201 @@
-**Week 1: MongoDB Fundamentals Assignment**
+Week 1: MongoDB Essentials Assignment
+Objective
+This project is designed to implement MongoDB concepts covered during the week. It involves working with databases, collections, documents, CRUD operations, data modeling, aggregation, and indexing. The exercises aim to enhance skills in database management and optimization.
 
-**Objective:**
+Table of Contents
+Setting Up MongoDB
+Creating Databases and Collections
+Inserting Data
+Retrieving Data
+Updating Data
+Deleting Data
+Data Modeling Exercise
+Aggregation Framework
+Indexing
+Testing
+Submission Guidelines
+Setting Up MongoDB
+To get started with MongoDB, ensure it is correctly installed on your local machine or utilize MongoDB Atlas to set up a free cloud cluster.
 
-- Apply MongoDB concepts learned throughout the week.
-- Practice working with databases, collections, and documents.
-- Develop skills in CRUD operations and data modeling.
+Steps:
+Install MongoDB locally or use MongoDB Atlas for a cloud-based solution.
+Start the MongoDB server locally or connect to your MongoDB Atlas cluster.
+Confirm the installation by executing the following command:
+sh
+Run
+Copy code
+mongo --version
+Creating Databases and Collections
+Create a new database named library and a collection called books.
+Example:
 
-**Instructions:**
+sh
+Run
+Copy code
+use library
+db.createCollection("books")
+Inserting Data
+Insert a minimum of five book records into the books collection, each containing fields such as title, author, publishedYear, genre, and ISBN.
+Example Insert:
 
-1. **Setup MongoDB:**
+sh
+Run
+Copy code
+db.books.insertMany([
+  {
+    title: "The Handmaid's Tale",
+    author: "Margaret Atwood",
+    publishedYear: 1985,
+    genre: "Dystopian",
+    ISBN: "9780385490818"
+  },
+  {
+    title: "Fahrenheit 451",
+    author: "Ray Bradbury",
+    publishedYear: 1953,
+    genre: "Dystopian",
+    ISBN: "9781451673319"
+  },
+  {
+    title: "Pride and Prejudice",
+    author: "Jane Austen",
+    publishedYear: 1813,
+    genre: "Classic",
+    ISBN: "9780141439518"
+  },
+  {
+    title: "The Catcher in the Rye",
+    author: "J.D. Salinger",
+    publishedYear: 1951,
+    genre: "Fiction",
+    ISBN: "9780316769488"
+  },
+  {
+    title: "Moby Dick",
+    author: "Herman Melville",
+    publishedYear: 1851,
+    genre: "Classic",
+    ISBN: "9781503280786"
+  }
+])
+Retrieving Data
+Execute queries to fetch data from the books collection.
+Example Queries:
 
-   - Install MongoDB locally or create a free cluster on MongoDB Atlas.
-   - Start the MongoDB server locally or connect to the MongoDB Atlas cluster.
-   - Verify the installation and connection by running:
-     ```sh
-     mongo --version
-     ```
+sh
+Run
+Copy code
+# Retrieve all books
+db.books.find()
 
-2. **Database and Collection Creation:**
+# Retrieve books by a specific author
+db.books.find({ author: "Margaret Atwood" })
 
-   - Create a new database called `library`.
-   - Inside `library`, create a collection named `books`.
+# Retrieve books published after the year 2000
+db.books.find({ publishedYear: { $gt: 2000 } })
+Updating Data
+Perform updates to modify existing records in the collection.
+Example Updates:
 
-3. **Insert Data:**
+sh
+Run
+Copy code
+# Update the publishedYear for a specific book
+db.books.updateOne(
+  { ISBN: "9780385490818" },
+  { $set: { publishedYear: 2000 } }
+)
 
-   - Insert at least five book records into the `books` collection.
-   - Each book should contain fields such as `title`, `author`, `publishedYear`, `genre`, and `ISBN`.
+# Add a 'rating' field to all books
+db.books.updateMany(
+  {},
+  { $set: { rating: 4.5 } }
+)
+Data Modeling Exercise
+Develop a data model for an e-commerce platform that includes users, orders, and products collections.
+Example Data Model:
 
-4. **Retrieve Data:**
+Users Collection
+sh
+Run
+Copy code
+db.createCollection("users")
+db.users.insertOne({
+  username: "jane_doe",
+  password: "hashed_password_here",
+  email: "jane.doe@example.com",
+  role: "customer",
+  createdAt: new Date()
+})
+Orders Collection
+sh
+Run
+Copy code
+db.createCollection("orders")
+db.orders.insertOne({
+  userId: ObjectId("user_id_here"), 
+  items: [{ productId: ObjectId("product_id_here"), quantity: 1, price: 20 }],
+  totalAmount: 20,
+  status: "pending",
+  createdAt: new Date(),
+  updatedAt: new Date()
+})
+Products Collection
+sh
+Run
+Copy code
+db.createCollection("products")
+db.products.insertOne({
+  name: "Gaming Laptop",
+  description : "A high-performance gaming laptop.",
+  price: 1200,
+  stock: 50,
+  category: "electronics",
+  rating: 4.7,
+  createdAt: new Date()
+})
+Aggregation Framework
+Utilize the aggregation framework to perform operations on the data.
+Example Aggregations:
 
-   - Retrieve all books from the collection.
-   - Query books based on a specific author.
-   - Find books published after the year 2000.
+bash
+Run
+Copy code
+# Find the total number of books per genre
+db.books.aggregate([
+  { $group: { _id: "$genre", totalBooks: { $sum: 1 } } }
+])
 
-5. **Update Data:**
+# Calculate the average published year of all books
+db.books.aggregate([
+  { $group: { _id: null, avgPublishedYear: { $avg: "$publishedYear" } } }
+])
 
-   - Update the `publishedYear` of a specific book.
-   - Add a new field called `rating` to all books and set a default value.
+# Identify the highest-rated book
+db.books.aggregate([
+  { $sort: { rating: -1 } },
+  { $limit: 1 }
+])
+Indexing
+Create an index on the author field to enhance query performance.
+Example:
 
-6. **Delete Data:**
+bash
+Run
+Copy code
+db.books.createIndex({ author: 1 })
+Advantages of Indexing:
+Indexing significantly improves query performance, especially when dealing with large datasets.
+It accelerates searches, sorting, and filtering based on indexed fields.
+Testing
+Validate the inserted and updated records using queries in MongoDB Shell or Compass.
+Example Test Queries:
 
-   - Delete a book by its `ISBN`.
-   - Remove all books of a particular genre.
+bash
+Run
+Copy code
+# Verify inserted records
+db.books.find()
 
-7. **Data Modeling Exercise:**
-
-   - Create a data model for an e-commerce platform including collections for `users`, `orders`, and `products`.
-   - Decide on appropriate fields and relationships (embedding vs. referencing).
-   - Implement the structure using MongoDB.
-
-8. **Aggregation Pipeline:**
-
-   - Use aggregation to find the total number of books per genre.
-   - Calculate the average published year of all books.
-   - Identify the top-rated book.
-
-9. **Indexing:**
-
-   - Create an index on the `author` field to optimize query performance.
-   - Explain the benefits of indexing in MongoDB.
-
-10. **Testing:**
-
-   - Use the MongoDB shell or Compass to verify the inserted and updated records.
-   - Ensure all queries return the expected results.
-
-11. **Documentation:**
-
-   - Create a `README.md` file with step-by-step instructions on setting up and running your database.
-
-12. **Submission:**
-
-   - Push your code and scripts to your GitHub repository.
-
-**Evaluation Criteria:**
-
-- Proper setup and connection of MongoDB.
-- Accurate implementation of CRUD operations.
-- Correct data modeling with appropriate relationships.
-- Use of aggregation for insightful queries.
-- Clear and concise documentation.
-- Proper indexing implementation.
-
+# Ensure 'rating' field was added to all books
+db.books.find({ rating: { $exists: true } })
