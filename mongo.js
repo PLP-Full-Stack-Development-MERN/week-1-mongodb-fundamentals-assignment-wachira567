@@ -2,32 +2,25 @@ db.createCollection("books");
 
 db.books.insertMany([
   {
-    title: "1984",
-    author: "George Orwell",
-    publishedYear: 1949,
+    title: "The Handmaid's Tale",
+    author: "Margaret Atwood",
+    publishedYear: 1985,
     genre: "Dystopian",
-    ISBN: "9780451524935"
+    ISBN: "9780385490818"
   },
   {
-    title: "Brave New World",
-    author: "Aldous Huxley",
-    publishedYear: 1932,
+    title: "Fahrenheit 451",
+    author: "Ray Bradbury",
+    publishedYear: 1953,
     genre: "Dystopian",
-    ISBN: "9780060850524"
+    ISBN: "9781451673319"
   },
   {
-    title: "The Great Gatsby",
-    author: "F. Scott Fitzgerald",
-    publishedYear: 1925,
-    genre: "Fiction",
-    ISBN: "9780743273565"
-  },
-  {
-    title: "To Kill a Mockingbird",
-    author: "Harper Lee",
-    publishedYear: 1960,
-    genre: "Fiction",
-    ISBN: "9780061120084"
+    title: "Pride and Prejudice",
+    author: "Jane Austen",
+    publishedYear: 1813,
+    genre: "Classic",
+    ISBN: "9780141439518"
   },
   {
     title: "The Catcher in the Rye",
@@ -35,9 +28,15 @@ db.books.insertMany([
     publishedYear: 1951,
     genre: "Fiction",
     ISBN: "9780316769488"
+  },
+  {
+    title: "Moby Dick",
+    author: "Herman Melville",
+    publishedYear: 1851,
+    genre: "Classic",
+    ISBN: "9781503280786"
   }
 ]);
-
 
 db.books.find();
 
@@ -46,7 +45,7 @@ db.books.find({ author: "George Orwell" });
 db.books.find({ publishedYear: { $gt: 2000 } });
 
 db.books.updateOne(
-  { ISBN: "9780451524935" },
+  { ISBN: "9780385490818" },
   { $set: { publishedYear: 2000 } }
 );
 
@@ -55,10 +54,9 @@ db.books.updateMany(
   { $set: { rating: 4.5 } }
 );
 
-db.books.deleteOne({ ISBN: "9780451524935" });
+db.books.deleteOne({ ISBN: "9780385490818" });
 
 db.books.deleteMany({ genre: "Fiction" });
-
 
 db.createCollection("users");
 db.users.insertOne({
@@ -106,7 +104,6 @@ db.books.aggregate([
 ]);
 
 db.books.createIndex({ author: 1 });
-
 
 db.books.find();
 
